@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>James Codes</title>
+
+    <!-- stylesheets -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet"
+    href="https://bootswatch.com/cyborg/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Oswald:300" rel="stylesheet">
+    <!--<link rel="stylesheet" href="/normalize.css"/>-->
+    <link rel="stylesheet" href="/portfolio.css" />
+</head>
+<body class="nojs">
+
+    <div class="navbar navbar-default">
+        <div class="container">
+            <a class="navbar-brand" href="/">James Codes</a>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h1>Home</h1>
+                </div>
+                {% for blog in blog_posts %}
+                <div class="panel-body">
+                    {{ blog.content|safe }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col-sm-12">
+            <h1>Personal Projects</h1>
+        </div>
+        <!-- Project list -->
+
+        {% for project in projects %}
+        <div class="col-sm-12">
+            <div class="thumbnail card">
+                <div class="card-img-top" style="background-image:url('{{ project.image }}');">
+                    <h3 class="card-title">{{ project.name }}</h3>
+                </div>
+                <div class="caption card-block">
+                    <p class="card-text">{{ project.description }}</p>
+                    {% if project.url %}
+                    <p>
+                        <a href="{{ project.url }}" target="_blank" class="btn btn-primary">Check it out <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                    </p>
+                    {% endif %}
+                    <p>
+                        {% for lang in project.languages %}
+                        <span class="label label-info">{{ lang }}</span> {% endfor %} {% for api in project.apis %}
+                        <span class="label label-default">{{ api }}</span> {% endfor %} {% for other in project.infrastructure %}
+                        <span class="label label-success">{{ other }}</span> {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- / project list -->
+    </div>
+
+
+    <div class="container">
+        <div class="col-sm-12">
+            <h1>About</h1>
+        </div>
+        <div class="col-sm-12">
+            <div id="profile-picture" style="background-image:url('{{ gravatar.thumbnailUrl }}');"></div>
+            <h2>{{ gravatar.name.formatted }}</h2>
+            <h4>{{ gravatar.currentLocation }}</h4>
+            <p>
+                {{ gravatar.aboutMe }}
+            </p>
+        </div>
+        <div class="col-sm-12">
+            <h2>Rap sheet</h2>
+            <h3>Skills</h3>
+            <div class="">
+                {% for skill in skills %}
+                <div class="skill">
+                    <div class="name" style="width:{{ skill.percentage}}%;background:{{ skill.colour }};">{{ skill.name }}</div>
+                    <!--
+                    <div class="extra">{{ skill.description }}</div>
+                    -->
+                </div>
+                {% endfor %}
+            </div>
+            <!--
+            <h3>Qualifications</h3>
+            <p>Red Hat Certified System Administrator II, graduate of Art Institute of Vancouver for Visual and Game Programming</p>
+            <h3>Languages</h3>
+            <p>Javascript, PHP, MySQL, Shell, Java, Python, C++, C#, Haxe, Markdown, HTML/HTML5, CSS/CSS3, JSON, XML</p>
+            <h3>Technology</h3>
+            <p>TCP/IP, HTTP, HTTPS, SSH, RESTful APIs, AWS (EC2, S3), Linux operating systems</p>
+            <h3>Things I've Worked With</h3>
+            <p>ExtJS, jQuery, YUI3, Bootstrap, Django, pylint, unittest, npm, nodejs, handle-bars, expressjs, jshint, grunt, uglify, lesscss, Eclipse, Atom, Komodo, Microsoft Visual Studio, Mono Develop, Apache, phpMyAdmin, MySQL, MSSQL, MariaDB, Makefiles,
+            scons, CMake, clang, g++, llvm, premake4/5, Tomcat, Liferay, Ant, Unity, Unreal, FMODex, RakNet, DLL authoring, Photoshop, Maya, Blender, Adobe Audition, gdb, cpplint.py</p>
+        -->
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col-sm-12">
+            {{ version }}
+        </div>
+    </div>
+
+    <div id="scripts">
+        <!-- scripts -->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>

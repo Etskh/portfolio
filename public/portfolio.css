@@ -1,0 +1,69 @@
+body {
+  font-family: 'Oswald', sans-serif;
+  color: #EEE;
+  background: #111;
+}
+h1, h2, h3, h4, h5 {
+  font-family: 'Amatic SC', cursive;
+  color: #FFF;
+}
+p {
+  color: #DDD;
+}
+
+
+
+.card {
+  background: #334;
+  box-shadow: #000 0px 0px 5px;
+  border: 0px;
+  padding:0px;
+}
+.card .card-block {
+  padding: 18px;
+}
+.card .label {
+  text-shadow: rgba(0,0,0,1) 0px 0px 2px;
+  line-height: 2.5;
+}
+.card-img-top {
+  width: 100%;
+  height: 150px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+.card-img-top .card-title {
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  padding-top:120px;
+  padding-left: 30px;
+  text-shadow: #000 0px 0px 5px;
+}
+
+
+#profile-picture {
+  width:80px;
+  height:80px;
+  border-radius: 40px;
+  background: no-repeat;
+}
+
+
+.skill {
+    text-shadow:#000 0px 0px 4px;
+    cursor:pointer;
+}
+.skill .name {
+    border-radius: 4px;
+    padding: 2px;
+    margin: 2px;
+    padding-left:8px;
+}
+.skill .name:hover {
+    text-shadow:#888 0px 0px 5px;
+    color:#FFF;
+}
+.skill .name:active {
+    text-shadow:#000 0px 0px 5px;
+    color:#AAA;
+}

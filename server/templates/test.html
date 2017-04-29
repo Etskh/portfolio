@@ -1,0 +1,265 @@
+<html>
+	<head>
+		<title>jamescodes.ca - Fullstack Generalist</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<style>
+            /* base theme */
+			h1, h2, h3, h4 {
+				font-family: 'Roboto Mono', monospace;
+			}
+			body {
+				font-weight: 300;
+			}
+
+            h1 {
+                margin-top:48px;
+            }
+
+            .jumbotron {
+                background-color: #666;
+                color:#EEE;
+            }
+            .jumbotron h1, .jumbotron h2, .jumbotron h3 {
+                text-shadow: #000 0px 0px 4px;
+            }
+            .jumbotron .card {
+                color:#333;
+                border-color: #333;
+                box-shadow: #000 0px 0px 10px;
+            }
+			.container {
+				margin-bottom: 30px;
+			}
+			.card {
+				margin-bottom: 30px;
+			}
+            .card-image-container {
+                height: 256px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+            }
+			.navbar > .container {
+				margin-bottom: 0px;
+			}
+            .badge {
+                margin: 2px;
+                font-weight:300;
+            }
+            .list-group-item.narrow {
+                padding-bottom: .40rem;
+                padding-top: .40rem;
+            }
+
+
+
+            /* skills */
+			.skill {
+				color: #FFF;
+				text-shadow: #333 0px 0px 4px;
+				text-align:left;
+				padding-left: 8px;
+				margin-bottom:2px;
+				cursor:pointer;
+				transition: all 2s;
+				width:100px;
+				font-family:monospace;
+				display:block;
+			}
+			.skill:hover {
+				background:#333 !important;
+			}
+
+			#skill-information {
+				margin-left: 16px;
+			}
+
+			#skill-cursor {
+				position: absolute;
+				margin-left:-32px;
+				border-radius: 16px 32px 16px 0px;
+				background: #d9edf7;
+				transform: rotate(45deg);
+				width: 32px;
+				height:32px;
+				transition: top 0.5s;
+				display:none; /* default value */
+			}
+
+
+
+        </style>
+	</head>
+	<body lang="en">
+
+
+		<!-- nav bar -->
+		<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+			<div class="container">
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand" href="/">JamesCodes.ca</a>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="#home">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#projects">Projects</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#about">About</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#contact">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+		<!-- header -->
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-3">Fullstack Generalist</h1>
+				<p class="lead">
+					This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+				</p>
+				<hr class="my-4">
+				<p>
+					It uses utility classes for typography and spacing to space content out within the larger container.
+				</p>
+			</div>
+		</div>
+
+		<!-- blog -->
+		<div class="container" id="home">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Google Sheets as a Data Source</h2>
+					<p>TBD</p>
+					<a href="#">Read more...</a>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- projects -->
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container" id="projects">
+				<h2>Projects</h2>
+				<div class="row">
+                    {% for project in projects %}
+					<div class="col-sm-6">
+						<div class="card">
+                            <div class="card-image-container" style="background-image:url('{{ project.image }}');"></div>
+							<!--<img class="card-img-top" src="{{ project.image }}" alt="{{project.name}}">-->
+							<div class="card-block">
+								<h4 class="card-title">{{project.name}}</h4>
+								<p class="card-text">{{project.description}}</p>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item narrow">
+                                {% for lang in project.languages %}
+                                    <span class="badge badge-success">{{lang}}</span>
+                                {% endfor %}
+                                </li>
+                                <li class="list-group-item narrow">
+                                {% for api in project.apis %}
+                                    <span class="badge badge-default">{{api}}</span>
+                                {% endfor %}
+                                </li>
+                                <li class="list-group-item narrow">
+                                {% for other in project.infrastructure %}
+                                    <span class="badge badge-info">{{other}}</span>
+                                {% endfor %}
+                                </li>
+							</ul>
+							<div class="card-block ">
+								<a href="http://www.github.com/Etskh/card-creator" target="_blank" class="btn btn-outline-primary card-link">View source <i class="fa fa-github" aria-hidden="true"></i></a>
+                                {% if project.url %}
+								<a href="{{ project.url }}" class="btn btn-outline-primary card-link">Check it out <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                {% endif %}
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+
+
+		<!-- about -->
+		<!--<a href="#about" name="about"></a>-->
+		<div class="container" id="about">
+			<h2>About</h2>
+			<div class="row">
+				<div class="col-sm-4">
+                    <img src="{{ gravatar.thumbnailUrl }}" alt="Professional mug shot" class="rounded-circle mx-auto">
+				</div>
+				<div class="col-sm-8 lead">{{ gravatar.aboutMe }}</div>
+			</div>
+			<hr class="my-4">
+			<p>
+				This is another short blurb about myself. It can go on and on and on because it's a pretty long line and I think that it looks good if the space is filled up
+			</p>
+		</div>
+		<div class="container">
+			<div class="row" style="height:320px;">
+				<div class="col-sm-6">
+					<h3>Skills</h3>
+                    {% for skill in skills %}
+					<button type="button" class="btn btn-sm skill" data-points="{{skill.level}}" data-content="{{ skill.description }}">{{skill.name}}</button>
+                    {% endfor %}
+				</div>
+				<div class="col-sm-6 hidden-xs-down">
+					<div class="alert alert-info h-100" role="alert">
+						<div id="skill-cursor">&nbsp;</div>
+						<h4 id="skill-title"></h4>
+                        <small><p id="skill-title-description"></p></small>
+						<p class="lead" id="skill-information">Hover over the skills for extra information</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- contact me -->
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container" id="contact">
+				<div class="col-md-8">
+					<h2>Get in touch <i class="fa fa-handshake-o" aria-hidden="true"></i></h2>
+				</div>
+				<div class="col-md-4">
+					<p>box here</p>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- footer -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<p>Something</p>
+				</div>
+				<div class="col-md-6">
+					<p>This site is James Loucks' portfolio site. It's built with Bootstrap, jQuery, Nunjucks templates, Markdown, using Express in NodeJs, and hosted on AWS</p>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- scripts -->
+		<div id="scripts">
+			<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+			<script src="test.js"></script>
+		</div>
+	</body>
+</html>
