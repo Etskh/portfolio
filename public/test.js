@@ -6,7 +6,7 @@ $(document).ready(function() {
 	var titles = [
 		'Prior experience',
 		'Intermediate',
-		'Very Proficient',
+		'Very proficient',
 		'Expert',
 	];
     var titleDescription = [
@@ -16,9 +16,12 @@ $(document).ready(function() {
         'I know how the language works under the hood, and have tought others about it',
     ];
 	$('.skill').hover(function() {
-		var index = Math.floor(parseFloat(this.dataset.points)*titles.length);
-		$('#skill-title').text(titles[index]);
-        $('#skill-title-description').text(titleDescription[index]);
+		var index = Math.min(titles.length -1, Math.floor(parseFloat(this.dataset.points)*titles.length));
+		$('#skill-title').text($(this).text());
+        $('#skill-title-description').html([
+          '<strong>', titles[index], ':</strong> ',
+          titleDescription[index],
+        ].join(''));
 		$('#skill-information').text(this.dataset.content);
 		var position = $(this).position();
 		$('#skill-cursor').css({top: position.top});
