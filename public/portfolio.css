@@ -1,69 +1,150 @@
+
+/* base theme */
+h1, h2, h3, h4 {
+    font-family: 'Roboto Mono', monospace;
+}
+h1 {
+    margin-top:48px;
+}
+
 body {
-  font-family: 'Oswald', sans-serif;
-  color: #EEE;
-  background: #111;
+    font-weight: 300;
 }
-h1, h2, h3, h4, h5 {
-  font-family: 'Amatic SC', cursive;
-  color: #FFF;
-}
-p {
-  color: #DDD;
+textarea {
+    font-weight: 300;
+    width: 100%;
 }
 
-
-
+.jumbotron {
+    background-color: #666;
+    color:#EEE;
+}
+.jumbotron h1, .jumbotron h2, .jumbotron h3 {
+    text-shadow: #000 0px 0px 4px;
+}
+.jumbotron .card {
+    color:#333;
+    border-color: #333;
+    box-shadow: #000 0px 0px 10px;
+}
+.container {
+    margin-bottom: 30px;
+}
 .card {
-  background: #334;
-  box-shadow: #000 0px 0px 5px;
-  border: 0px;
-  padding:0px;
+    margin-bottom: 30px;
 }
-.card .card-block {
-  padding: 18px;
+.card-image-container {
+    height: 256px;
 }
-.card .label {
-  text-shadow: rgba(0,0,0,1) 0px 0px 2px;
-  line-height: 2.5;
+
+/* preview */
+.project-preview .device {
+    margin: 40px auto;
+    position:relative;
 }
-.card-img-top {
-  width: 100%;
-  height: 150px;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+.project-preview .device .image {
+    height: 100%;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
 }
-.card-img-top .card-title {
-  height: 100%;
-  background-color: rgba(0,0,0,0.8);
-  padding-top:120px;
-  padding-left: 30px;
-  text-shadow: #000 0px 0px 5px;
+.project-preview .device .fake-screen {
+    position:absolute;
+    top:-10px;
+    left:-10px;
+    border: solid 10px #111;
+    border-radius: 10px;
+}
+
+/* Mobile phones */
+.project-preview .device.mobile {
+    margin: 60px auto;
+    width: 90px;
+    height: 150px;
+}
+.project-preview .device.mobile .fake-screen {
+    width: 110px;
+    height: 170px;
+}
+/* Desktop
+    1920:1080 = ~1.7777
+    340:180
+*/
+.project-preview .device.desktop {
+    width: 340px;
+    height: 180px;
+}
+.project-preview .device.desktop .fake-screen {
+    width: 360px;
+    height: 200px;
+}
+@media (max-width: 1092px) {
+    .project-preview .device.desktop {
+        margin: 80px auto;
+        width: 170px;
+        height: 90px;
+    }
+    .project-preview .device.desktop .fake-screen {
+        border: solid 7px #111;
+        top:-6px;
+        left:-6px;
+        width: 180px;
+        height: 100px;
+    }
 }
 
 
-#profile-picture {
-  width:80px;
-  height:80px;
-  border-radius: 40px;
-  background: no-repeat;
-}
 
 
-.skill {
-    text-shadow:#000 0px 0px 4px;
-    cursor:pointer;
+
+.navbar > .container {
+    margin-bottom: 0px;
 }
-.skill .name {
-    border-radius: 4px;
-    padding: 2px;
+.badge {
     margin: 2px;
-    padding-left:8px;
+    font-weight:300;
 }
-.skill .name:hover {
-    text-shadow:#888 0px 0px 5px;
-    color:#FFF;
+.list-group-item.narrow {
+    padding-bottom: .40rem;
+    padding-top: .40rem;
 }
-.skill .name:active {
-    text-shadow:#000 0px 0px 5px;
-    color:#AAA;
+
+
+
+
+
+
+
+
+/* skills */
+.skill {
+    color: #FFF;
+    text-shadow: #333 0px 0px 4px;
+    text-align:left;
+    padding-left: 8px;
+    margin-bottom:2px;
+    cursor:pointer;
+    transition: all 2s;
+    width:100px;
+    font-family:monospace;
+    display:block;
+}
+.skill:hover {
+    background:#333 !important;
+}
+
+#skill-information {
+    margin-left: 16px;
+}
+
+#skill-cursor {
+    position: absolute;
+    margin-left:-32px;
+    border-radius: 16px 32px 16px 0px;
+    background: #d9edf7;
+    transform: rotate(45deg);
+    width: 32px;
+    height:32px;
+    transition: top 0.5s;
+    display:none; /* default value */
 }

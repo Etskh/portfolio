@@ -3,6 +3,11 @@
 
 $(document).ready(function() {
 
+
+  //
+  // Skillz that killz
+  //
+
 	var titles = [
 		'Prior experience',
 		'Intermediate',

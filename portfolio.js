@@ -1,19 +1,17 @@
 const fs = require('fs');
 const express = require('express');
 const nunjucks = require('nunjucks');
-const compression = require('compression')
-const bunyan = require('bunyan');
-const request = require('request');
-const md5 = require('md5');
-const markdown = require("markdown").markdown;
+const compression = require('compression');
 
 
 const package = require('./package');
 
 
 const projects = require('./server/lib/projects');
+const blog = require('./server/lib/blog');
 const skills = require('./server/lib/skills');
-
+const gravatar = require('./server/lib/gravatar');
+const logger = require('./server/lib/logger');
 
 
 
@@ -27,16 +25,6 @@ const config = {
 config.port = process.env.PORT || config.default_port;
 
 
-
-const blogPosts = {
-    'jaya-cms': {
-        title: 'Jaya-CMS',
-        date: new Date(2016, 1),
-    },
-};
-
-
-
 app.use(express.static('public'));
 app.use(compression());
 
@@ -46,81 +34,10 @@ nunjucks.configure('server/templates', {
 });
 
 
-const log = bunyan.createLogger({
-    name: config.name
-});
-
-
-
-const getGravatar = (email) => {
-
-    return Promise.resolve({
-        name: {
-            formatted: 'James Loucks',
-            first: 'James',
-            last: 'Loucks',
-        },
-        aboutMe: 'Natural leader. Generalist developer. Certified system administrator. JavaScript/ECMA6 specialist. Games, comics, and music enthusiast.',
-        currentLocation: 'Vancouver, Canada',
-        thumbnailUrl: 'http://1.gravatar.com/avatar/b4c46e3f9c03cc84920d8fd34fd1174b',
-    });
-
-    return new Promise((resolve, reject) => {
-        const gravatarRoot = 'https://www.gravatar.com/';
-        const userAgent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36';
-        const requestOptions = {
-            url: gravatarRoot + md5(email) + '.json',
-            headers: {
-                'User-Agent': userAgent,
-            }
-        };
-        request.get(requestOptions, function(error, response, body) {
-            if (error) {
-                return reject('Can not load gravatar');
-            }
-
-            const data = JSON.parse(body);
-            if (data.entry.length < 1) {
-                return reject('No profiles returned');
-            }
-
-            return resolve(data.entry[0]);
-        });
-    });
-};
-
-
-const getBlogPost = (name, info) => {
-    return new Promise((resolve, reject) => {
-
-        const blogPath = './server/blog/' + name + '.md';
-        fs.readFile(blogPath, (err, data ) => {
-            if( err ) {
-                return reject(err);
-            }
-
-            return resolve({
-                title: info.title,
-                content: markdown.toHTML(data.toString()),
-                date_posted: info.date,
-                last_modified: info.date,
-            });
-        });
-    });
-};
-const getBlogPosts = () => {
-    const blogs = [];
-    for (let name in blogPosts) {
-        blogs.push(getBlogPost(name, blogPosts[name]));
-    }
-    return Promise.all(blogs);
-};
-
-
 
 
 app.all('/', function(req, res, next) {
-    log.info(`Requesting page ${req.url}`);
+    logger.info(`Requesting page ${req.url}`);
     next();
 });
 app.get('/', function(req, res) {
@@ -128,13 +45,13 @@ app.get('/', function(req, res) {
     const email = 'etskh@hotmail.com';
 
     Promise.all([
-        getBlogPosts(),
-        getGravatar(email),
+        blog.getAll(),
+        gravatar.getProfile(email),
         skills.getAll(),
         projects.getAll(),
     ]).then(results => {
 
-        res.render('test.html', {
+        res.render('portfolio.html', {
             projects: results[3],
             blog_posts: results[0],
             gravatar: results[1],
@@ -149,7 +66,7 @@ app.get('/', function(req, res) {
 });
 
 app.listen(config.port, function() {
-    log.info(`Starting app on port ${config.port}`);
+    logger.info(`Starting app on port ${config.port}`);
 });
 
 /*
