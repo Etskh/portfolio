@@ -8,160 +8,47 @@
 	</head>
 	<body lang="en">
 
-
-		<!-- nav bar -->
-		<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
-			<div class="container">
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<a class="navbar-brand" href="/">JamesCodes.ca</a>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="#home"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#projects"><i class="fa fa-pencil-square" aria-hidden="true"></i> Projects</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#about"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#contact"><i class="fa fa-commenting" aria-hidden="true"></i> Contact</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
+        <!-- nav bar -->
+		{% include 'sections/nav.html' %}
 
 		<!-- header -->
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">
 				<h1 class="display-3">Fullstack Generalist</h1>
 				<p class="lead">
-					This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+                    
 				</p>
 				<hr class="my-4">
 				<p>
-					It uses utility classes for typography and spacing to space content out within the larger container.
+
 				</p>
 			</div>
 		</div>
 
-		<!-- blog -->
-		<div class="container" id="home">
-			<div class="row">
-				<div class="col-sm-12">
-					<h2>Google Sheets as a Data Source</h2>
-					<p>TBD</p>
-					<a href="#">Read more...</a>
-				</div>
-			</div>
-		</div>
+        <!-- about me -->
+        {% include 'sections/about.html' %}
 
-
-		<!-- projects -->
+        <!-- projects -->
 		<div class="jumbotron jumbotron-fluid">
-			<div class="container" id="projects">
-				<h2>Projects</h2>
-				<div class="row">
-                    {% for project in projects %}
-					<div class="col-sm-6">
-						<div class="card">
-                            <div class="card-image-container project-preview">
-                                {% for device in project.devices %}
-                                    <div class="device {{ device }}">
-                                        <div class="image" style="background-image:url('{{ project.image }}');"></div>
-                                        <div class="fake-screen"></div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-							<div class="card-block">
-								<h4 class="card-title">{{project.name}}</h4>
-								<p class="card-text">{{project.description}}</p>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item narrow">
-                                {% for lang in project.languages %}
-                                    <span class="badge badge-success">{{lang}}</span>
-                                {% endfor %}
-                                </li>
-                                <li class="list-group-item narrow">
-                                {% for api in project.apis %}
-                                    <span class="badge badge-default">{{api}}</span>
-                                {% endfor %}
-                                </li>
-                                <li class="list-group-item narrow">
-                                {% for other in project.infrastructure %}
-                                    <span class="badge badge-info">{{other}}</span>
-                                {% endfor %}
-                                </li>
-							</ul>
-							<div class="card-block ">
-                                {% if project.repo %}
-			                        <a href="{{ project.repo }}" target="_blank" class="btn btn-outline-primary card-link">View source <i class="fa fa-github" aria-hidden="true"></i></a>
-                                {% endif %}
-                                {% if project.url %}
-			                        <a href="{{ project.url }}" class="btn btn-outline-primary card-link">Check it out <i class="fa fa-external-link" aria-hidden="true"></i></a>
-                                {% endif %}
-							</div>
-						</div>
-					</div>
-                    {% endfor %}
-				</div>
-			</div>
+			{% include 'sections/projects.html' %}
 		</div>
 
-
-		<!-- about -->
-		<!--<a href="#about" name="about"></a>-->
-		<div class="container" id="about">
-			<h2>About</h2>
-			<div class="row">
-				<div class="col-sm-4" style="text-align:center;">
-                    <img src="{{ gravatar.thumbnailUrl }}" alt="Professional mug shot" class="rounded-circle mx-auto">
-				</div>
-				<div class="col-sm-8 lead">{{ gravatar.aboutMe }}</div>
-			</div>
-			<hr class="my-4">
-			<p>
-				This is another short blurb about myself. It can go on and on and on because it's a pretty long line and I think that it looks good if the space is filled up
-			</p>
-		</div>
-		<div class="container">
-			<div class="row" style="height:320px;">
-				<div class="col-sm-6">
-					<h3>Skills</h3>
-                    {% for skill in skills %}
-					<button type="button" class="btn btn-sm skill" data-points="{{skill.level}}" data-content="{{ skill.description }}">{{skill.name}}</button>
-                    {% endfor %}
-				</div>
-				<div class="col-sm-6 hidden-xs-down">
-					<div class="alert alert-info h-100" role="alert">
-						<div id="skill-cursor">&nbsp;</div>
-						<h4 id="skill-title"></h4>
-                        <small><p id="skill-title-description"></p></small>
-						<p class="lead" id="skill-information">Hover over the skills for extra information</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
+        <!-- blog -->
+        <div class="container" id="home">
+            <div class="row">
+                <h1>Writing</h1>
+                <div class="col-sm-12">
+                    <h2>Google Sheets as a Data Source</h2>
+                    <p>TBD</p>
+                    <a href="#">Read more...</a>
+                </div>
+            </div>
+        </div>
 
 		<!-- contact me -->
 		<div class="jumbotron jumbotron-fluid">
-			<div class="container" id="contact">
-				<div class="col-sm-6">
-					<h2>Get in touch <i class="fa fa-handshake-o" aria-hidden="true"></i></h2>
-				</div>
-				<div class="col-sm-4">
-					<textarea placeholder="Message..." name="message" cols="40" rows="5"></textarea>
-				</div>
-			</div>
+            {% include 'sections/contact.html' %}
 		</div>
-
 
 		<!-- footer -->
 		<div class="container">
