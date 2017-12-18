@@ -9,6 +9,10 @@ const webpack = require('webpack');
 
 gulp.task('webpack', (callback) => {
   webpack(require('./webpack.config.js'), (err, stats) => {
+    if( err ) {
+      console.error(err);
+    }
+    console.log(stats);
     callback();
   });
 });

@@ -1,4 +1,6 @@
 
+import './utils/smoothScroll';
+
 import { App } from './components/App';
 
 ReactDOM.render(
