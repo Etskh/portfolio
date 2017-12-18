@@ -1,22 +1,43 @@
 {
   "name": "portfolio",
-  "version": "0.0.3",
-  "description": "The greatest portfolio in the world",
-  "main": "portfolio.js",
-  "scripts": {
-    "start": "node portfolio.js",
-    "dev": "nodemon -e html,js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "server/app.js",
+  "description": "Just a portfolio for James the coder",
   "author": "Etskh",
-  "license": "ISC",
+  "license": "MIT",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "gulp",
+    "dev": "nodemon",
+    "postinstall": "npm run build",
+    "start": "node server/app.js",
+    "lint": "eslint server client",
+    "webpack": "webpack"
+  },
+  "//": "don\t need react, react-dom because we're doing CDN",
   "dependencies": {
-    "bunyan": "^1.8.9",
-    "compression": "^1.6.2",
-    "express": "^4.15.2",
-    "markdown": "^0.5.0",
-    "md5": "^2.2.1",
-    "nunjucks": "^3.0.0",
-    "request": "^2.81.0"
+    "bunyan": "^1.8.12",
+    "express": "^4.16.2",
+    "express-hbs": "^1.0.4",
+    "md5": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.3.2",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-util": "^3.0.8",
+    "jasmine": "^2.8.0",
+    "nodemon": "^1.12.5",
+    "webpack": "^3.10.0"
   }
 }

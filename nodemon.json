@@ -1,15 +1,14 @@
 {
-  "verbose": true,
-  "ignore": [
-    ".git",
-    "node_modules/**/node_modules"
-  ],
-  "e": ".html,.js portfolio.js",
-  "events": {
-    "restart": "App restarted due to: '$FILENAME' with title 'nodemon'"
-  },
+  "ext": "js json jsx less html",
   "env": {
     "NODE_ENV": "development"
   },
-  "ext": "js json html"
+  "verbose": true,
+  "watch": [
+    "server",
+    "client"
+  ],
+  "events": {
+    "restart": "gulp"
+  }
 }

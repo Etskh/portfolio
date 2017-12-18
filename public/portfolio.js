@@ -7,7 +7,6 @@ $(document).ready(function() {
   //
   // Skillz that killz
   //
-
 	var titles = [
 		'Prior experience',
 		'Intermediate',
@@ -37,7 +36,6 @@ $(document).ready(function() {
 	//
 	// Smooth-scroll polyfill
 	//
-
 	const scrollSpeed = 500;
 	const scrollOffset = -64;
 	$('a[href*="#"]:not([href="#"])').click(function() {

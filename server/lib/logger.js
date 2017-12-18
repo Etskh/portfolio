@@ -1,8 +1,7 @@
-'use strict';
 
 const bunyan = require('bunyan');
 
 module.exports = bunyan.createLogger({
-    name: 'portfolio',
-    src: true,
+  name: 'James Codes',
+  src: true,
 });
