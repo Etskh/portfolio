@@ -1,0 +1,42 @@
+
+@accent: #5ab632;
+
+body {
+  position: relative;
+  background: #333;
+  color: #FFF;
+}
+
+div.jumbotron {
+    h1 {
+        color: #FFF;
+    }
+
+    background: transparent;
+}
+
+.nav-link {
+    transition: all 0.5s ease;
+    .on-inactive {
+        display: block;
+    }
+    .on-active {
+        display: none;
+    }
+}
+.nav-link.active {
+  color: @accent;
+  padding-top: 16px;
+  .on-inactive {
+      display: none;
+  }
+  .on-active {
+      display: block;
+  }
+}
+
+.section-dark {
+    h1 {
+        color: @accent;
+    }
+}
