@@ -12,7 +12,9 @@ gulp.task('webpack', (callback) => {
     if( err ) {
       console.error(err);
     }
-    console.log(stats);
+    if( stats.errors && stats.errors.length > 0 ) {
+      console.log(stats);
+    }
     callback();
   });
 });
