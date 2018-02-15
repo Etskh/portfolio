@@ -130,7 +130,7 @@
           ctx.restore();
 
           return Object.assign(data, {
-            gobboPos: data.gobboPos + delta * 800, // 30 pixels per second
+            gobboPos: data.gobboPos + (delta * 200), // 30 pixels per second
             isDone: data.gobboPos > 320, // finished when he's fallen to ~290
           });
         },
