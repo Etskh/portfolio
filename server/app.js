@@ -44,6 +44,12 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/valentines', (req, res) => {
+  res.render('valentines', {
+    // empty
+  });
+});
+
 // Listen on configured port
 app.listen(config.port, () => {
   logger.info([config.name, 'version', config.version, 'running on port', config.port].join(' '));

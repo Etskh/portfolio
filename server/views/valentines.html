@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentines</title>
+  <meta charset="utf-8"/>
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+  <style>
+    body {
+      background: #222;
+      margin: 0px;
+      padding: 0px;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+      overflow: hidden;
+    }
+    #debug div {
+      position:absolute;
+      bottom: 0px;
+      right: 0px;
+      font-family: 'Courier New', monospace;
+      white-space: pre;
+      color: white;
+    }
+    #scene {
+      position:relative;
+      display: flex;
+      justify-content: center;
+    }
+    #scene #canvas {
+      position:absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 100;
+    }
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+    #scene #title-text {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 4em;
+      z-index: 200;
+      color:#FFF;
+      text-shadow: #F62 0px 0px 20px;
+      text-align: center;
+      line-height: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div id="debug">
+    <div id="debug-data"></div>
+  </div>
+  <div id="image-loader" style="display:none;">
+    <img id="hand" src="/hand.png"/>
+    <img id="heart" src="/heart.png"/>
+    <img id="facePull" src="/face-pull.png"/>
+    <img id="faceTired" src="/face-tired.png"/>
+    <img id="bodyTop" src="/body-top.png"/>
+    <img id="bodyBot" src="/body-bot.png"/>
+    <img id="bodyGobbo" src="/body-gobbo.png"/>
+    <img id="gobboFly" src="/gobbo-fly.png"/>
+  </div>
+  <div id="scene">
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <div id="title-text"></div>
+  </div>
+  <div id="scripts">
+    <script>
+      // Core
+      function round00(num) {
+        return Math.round(num * 100) / 100;
+      }
+
+      let HEIGHT = window.innerWidth;
+      let WIDTH = window.innerWidth;
+      function resize() {
+        const width = window.innerWidth;
+        document.getElementById('scene').style.height = `${width}px`;
+
+        const canvas = document.getElementById('canvas');
+
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${width}px`;
+        canvas.width = width;
+        canvas.height = width;
+
+        WIDTH = width;
+        HEIGHT = width;
+      }
+      resize();
+      window.onresize = resize;
+
+      const handImage = document.getElementById('hand');
+      const heartImage = document.getElementById('heart');
+      const facePullImage = document.getElementById('facePull');
+      const faceTiredImage = document.getElementById('faceTired');
+      const bodyTopImage = document.getElementById('bodyTop');
+      const bodyBotImage = document.getElementById('bodyBot');
+      const bodyGobboImage = document.getElementById('bodyGobbo');
+      const gobboFlyImage = document.getElementById('gobboFly');
+
+      const scenes = [{
+        data: {
+          text: '',
+          gobboPos: 0,
+        },
+        onClick: (pos, data) => {
+          return data;
+        },
+        onUpdate: (delta, ctx, data) => {
+
+          // Move to the centre
+          ctx.save();
+          ctx.translate( HEIGHT / 4, HEIGHT / 4 );
+
+          ctx.save();
+          ctx.drawImage(gobboFlyImage, 0, -HEIGHT/2 + data.gobboPos);
+          ctx.restore();
+
+          ctx.save();
+          ctx.translate(-246, 0);
+          ctx.drawImage(bodyBotImage, 0, 0 );
+          ctx.drawImage(bodyTopImage, 0, 0 );
+          ctx.restore();
+
+          ctx.restore();
+
+          return Object.assign(data, {
+            gobboPos: data.gobboPos + delta * 800, // 30 pixels per second
+            isDone: data.gobboPos > 320, // finished when he's fallen to ~290
+          });
+        },
+      },{
+        data: {
+          text: 'tap/click to pull!',
+          pulled: 0,
+          clicks: 0,
+          lastPull: 0,
+        },
+        onClick: (pos, data) => {
+          // pos doesn't actually matter
+          const lastPull = new Date();
+
+          return Object.assign(data, {
+            // Add 1 to pulled
+            pulled: data.pulled + 1,
+            lastPull: lastPull.getTime(),
+            clicks: data.clicks + 1,
+          });
+        },
+        onUpdate: (delta, ctx, data) => {
+          // Show the face being tired if they haven't clicked in a while
+          const now = new Date();
+          const showTired = (now.getTime() - data.lastPull) > 200;
+
+          // The log of the pull action is going to make it harder as you go higher
+          const logBase = Math.E;
+          const pulledLog = (Math.max(Math.log(data.pulled, logBase), 0)) / logBase;
+
+          // Move to the centre
+          ctx.save();
+          ctx.translate( WIDTH / 4, HEIGHT / 4 );
+
+          // Do the rotating face
+          ctx.save();
+          ctx.translate(100 + 50, 20 + 75);
+          ctx.rotate( pulledLog / 2 );
+          ctx.drawImage(showTired ? faceTiredImage : facePullImage, -100, -75, 200, 150 );
+          ctx.restore();
+
+          // Do the arm and hand and heart in it!
+          ctx.save();
+          ctx.fillStyle = '#00DD95';
+          ctx.translate(80 + (pulledLog * 30), 170 - (pulledLog * 30));
+          ctx.rotate(Math.PI * 1.25 );
+          ctx.fillRect(-5, -5, 10, 60);
+          ctx.drawImage(handImage, -25, -40, 60, 40 );
+          ctx.drawImage(heartImage, -20, -55, 60, 40 );
+          ctx.restore();
+
+          // TODO: draw the body
+          ctx.save();
+          ctx.translate(-246, 0);
+          ctx.drawImage(bodyGobboImage, 0, 0 );
+          ctx.drawImage(bodyBotImage, 0, 0 );
+          ctx.drawImage(bodyTopImage, 0, 0 );
+          ctx.restore();
+
+
+          // And restore
+          ctx.restore();
+
+          // Return a form of the object
+          return Object.assign(data, {
+            pulled: round00(Math.max( data.pulled - (delta * 0.8), 0)),
+            isDone: data.isDone || pulledLog > 1,
+            // debug - not needed for anything
+            pulledLog: round00(pulledLog),
+          });
+        },
+      }, {
+        data: {
+          text: 'Happy Valentines!',
+          heartRotate: 0,
+        },
+        onClick: (pos, data) => {
+          return data;
+        },
+        onUpdate: (delta, ctx, data) => {
+          // Move to the centre
+          ctx.save();
+          ctx.translate( HEIGHT / 2, HEIGHT / 2 );
+
+          ctx.rotate( data.heartRotate );
+          ctx.drawImage(heartImage, -heartImage.width / 2, -heartImage.height / 2 );
+
+          ctx.restore();
+
+          return Object.assign(data, {
+            heartRotate: data.heartRotate + delta * Math.PI / 3,
+          });
+        },
+      }, {
+        data: {
+          text: 'Battle time!',
+          timeout: null,
+        },
+        onClick: (pos, data) => { return data; },
+        onUpdate: (delta, ctx, data) => {
+          if( !data.timeout ) {
+            // empty
+          }
+
+          return data;
+        },
+      }, {
+        data: {
+          text: 'tap/click to dodge!',
+        },
+        onClick: (pos, data) => {
+          return data;
+        },
+        onUpdate: (delta, ctx, data) => {
+          return data;
+        },
+      }];
+
+      let sceneIndex = 0;
+      document.onclick = (e) => {
+        const pos = [ e.x, e.y ];
+        const newData = scenes[sceneIndex].onClick(pos, scenes[sceneIndex].data);
+        scenes[sceneIndex].data = newData;
+      }
+
+      document.body.onload = () => {
+        const INTERVAL = 16 / 1000;
+        setInterval(() => {
+          const scene = scenes[sceneIndex];
+
+          const ctx = document.getElementById('canvas').getContext('2d');
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.clearRect(0, 0, HEIGHT, HEIGHT);
+          ctx.save();
+
+          const newData = scene.onUpdate(INTERVAL, ctx, scene.data);
+          scene.data = newData;
+
+          if( scene.data.isDone ) {
+            sceneIndex += 1;
+          }
+
+          document.getElementById('title-text').innerHTML = scene.data.text || '';
+          //document.getElementById('debug-data').innerHTML = JSON.stringify(scene.data, null, 2);
+        }, INTERVAL);
+      };
+    </script>
+  </div>
+</body>
+</html>
