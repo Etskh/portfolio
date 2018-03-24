@@ -72,22 +72,36 @@ export default class CalorieCounter extends React.Component {
 
   render() {
     const sizes = {
-      'Taster': 5,
+      'Taste': 5,
       'Sleeve': 16,
       'Pint': 20,
     };
 
-    return <Section name='Craft Beer Calorie Calculator' isLight={false}>
+    return <Section name='Beer Calorie' isLight={false}>
       <div className='container'>
-        <div className='row' style={{ margin: 20, }}>
+        <div className='row' style={{ marginTop: 20, }}>
           <div className='col'>
-            <em>Funny Stuff</em><br/>
-            <input type='number' id='funnystuff' step='0.5' defaultValue='5.5' onChange={() => {
+            <h3>Funny Stuff</h3>
+            <input type='number'
+              id='funnystuff' step='0.5' defaultValue='5.5'
+              style={{
+                width: '4em',
+              }} onChange={() => {
+                this.compute();
+              }}/>
+            <div className='btn btn-sm btn-primary' onClick={() => {
+              const oldVal = parseFloat($('#funnystuff').val());
+              $('#funnystuff').val(oldVal - 0.5);
               this.compute();
-            }}/>
+            }}>-</div>
+            <div className='btn btn-sm btn-primary' onClick={() => {
+              const oldVal = parseFloat($('#funnystuff').val());
+              $('#funnystuff').val(oldVal + 0.5);
+              this.compute();
+            }}>+</div>
           </div>
           <div className='col'>
-            <em>Serving Size</em><br/>
+            <h3>Serving Size</h3>
             <div className='row'>
               {Object.keys(sizes).map( name => {
                 return <div key={name}
@@ -103,13 +117,13 @@ export default class CalorieCounter extends React.Component {
             }}/>
           </div>
           <div className='col'>
-            <em>Stoutiness</em><br/>
+            <h3>Stoutiness</h3>
             <input type='range' min='1' max='100' defaultValue='50' id='stoutiness' onChange={() => {
               this.compute();
             }}/>
           </div>
         </div>
-        <div className='row' style={{ margin: 20, }}>
+        <div className='row' style={{ marginTop: 20, }}>
           <div className='col' style={{ textAlign: 'center'}}>
             {!this.state.answer ? 'Computing...' :
               <h3 style={{ color: 'white', }}>
@@ -121,23 +135,30 @@ export default class CalorieCounter extends React.Component {
             }
           </div>
         </div>
-        <div className='row' style={{ margin: 20, }}>
+        <div className='row' style={{ marginTop: 20, }}>
           <div className='col'>
             <h1>{this.state.list.reduce( (acc, drink) => (acc + drink.answer), 0)} calories total</h1>
           </div>
         </div>
-        <div className='row' style={{ margin: 20, }}>
+        <div className='row' style={{ marginTop: 20, }}>
           <div className='col'>
+            <div className='row'>
+              <div className='col-2'>Calories</div>
+              <div className='col-2'>ABV</div>
+              <div className='col-2'>Size</div>
+              <div className='col-4'>Dunkelheit</div>
+              <div className='col-2'></div>
+            </div>
             {this.state.list.map( drink => {
               return <div key={drink.id} className='row'>
-                <div className='col-3'>{drink.answer} calories</div>
-                <div className='col-1'>{drink.funnystuff}%</div>
-                <div className='col-1'>{drink.servingsize}oz</div>
-                <div className='col-3'>{this.getStoutWord(drink.stoutiness)}</div>
+                <div className='col-2'>{drink.answer}</div>
+                <div className='col-2'>{drink.funnystuff}%</div>
+                <div className='col-2'>{drink.servingsize}oz</div>
+                <div className='col-4'>{this.getStoutWord(drink.stoutiness)}</div>
                 <div className='col-2'>
                   <div className='btn btn-sm btn-primary' onClick={() => {
                     this.removeBeer(drink.id);
-                  }}>jk</div>
+                  }}>X</div>
                 </div>
               </div>;
             })}
