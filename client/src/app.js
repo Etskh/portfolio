@@ -1,11 +1,11 @@
-
 import './utils/smoothScroll';
 
+import { BrowserRouter } from 'react-router-dom';
 import { App } from './components/App';
 
 ReactDOM.render(
-  React.createElement(App, {
-    // empty context
-  }, null),
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>,
   document.getElementById('root')
 );

@@ -7,7 +7,7 @@ export const getProfile = ( email ) => {
       first: 'James',
       last: 'Loucks'
     },
-    aboutMe: 'Natural leader. Generalist developer. Certified system administrator. JavaScript/ECMA6 specialist. Games, comics, and music enthusiast.',
+    aboutMe: 'Natural leader. Generalist developer. Previously certified system administrator. Web specialist. Games, comics, and music enthusiast.',
     currentLocation: 'Vancouver, Canada',
     thumbnailUrl: 'http://1.gravatar.com/avatar/b4c46e3f9c03cc84920d8fd34fd1174b'
   });

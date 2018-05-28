@@ -1,10 +1,7 @@
 
 export default (props) => {
-  const style = {
-    paddingTop: 40,
-    paddingBottom: 40,
-    minHeight: 400,
-  };
+  const style = props.style || {};
+
   if( props.isLight ) {
     style.backgroundColor = 'white';
     style.color = 'black';

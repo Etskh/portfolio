@@ -1,8 +1,9 @@
-import Section from './core/Section';
-import Icon from './core/Icon';
-import Link from './core/Link';
+import Section from '../core/Section';
+import Icon from '../core/Icon';
+import Link from '../core/Link';
+import { ResponsiveText as RT } from '../core/Core';
 
-import * as Skills from '../lib/skills';
+import * as Skills from '../../lib/skills';
 
 function lerp(v0, v1, t) {
   return v0 + t * (v1 - v0);
@@ -88,17 +89,18 @@ export default class SkillComponent extends React.Component {
     return <div
       key={skill.name}
       className='row'>
-      <button
-        id={skill.id}
-        style={style}
-        type='button'
-        className='skill btn btn-sm'
-        onClick={() => {
-          this.onSelectSkill(skill);
-        }}
-        >
-        {skill.name}
-      </button>
+      <div className='col'>
+        <button
+          id={skill.id}
+          style={style}
+          type='button'
+          className='skill btn btn-sm'
+          onClick={() => {
+            this.onSelectSkill(skill);
+          }}>
+          {skill.name.toLowerCase()}
+        </button>
+      </div>
     </div>;
   }
 
@@ -130,10 +132,17 @@ export default class SkillComponent extends React.Component {
   }
 
   render() {
-    return <Section name="skills" isLight={true}>
+    return <Section name="skills" isLight={this.props.isLight}>
       <div className="container">
         <div className="row">
-          <p>Touch or click the spells for extra information.</p>
+          <div className="col">
+            <p>
+              {RT(
+                'Tap the skills for extra information.',
+                'Click the skills for extra information.'
+              )}
+            </p>
+          </div>
         </div>
         <div className="row">
           <div className="col">

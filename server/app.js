@@ -24,6 +24,7 @@ const config = {
   description: pkg.description,
   version: pkg.version,
   port: process.env.PORT || 3000,
+  development: process.env.NODE_ENV === 'development',
 };
 
 // Add logging to each route
@@ -41,6 +42,21 @@ app.get('/', (req, res) => {
   res.render('index', {
     title: 'jamescodes.ca | James Loucks, Fullstack Developer',
     description: 'James can code things. He is very good at it.',
+  });
+});
+
+app.get('/beeralyzer', (req, res) => {
+  res.render('index', {
+    title: 'Beeralyzer',
+    description: 'Computes approximate calories for a night of beer drinking so you feel the right amount of bad afterwards.',
+  });
+});
+
+
+app.get('/resume', (req, res) => {
+  res.render('index', {
+    title: 'James Loucks | Cirriculum Vitae',
+    description: 'Software developer',
   });
 });
 
