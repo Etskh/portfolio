@@ -6,8 +6,10 @@ const skillType = {
   angular: 'frame',
   apache: 'infra',
   'api-gateway': 'infra',
+  aws: 'infra',
   bash: 'lang',
   bootstrap: 'frame',
+  clang: 'skill',
   'continuous deployment': 'skill',
   'continuous integration': 'skill',
   'c++': 'lang',
@@ -18,6 +20,7 @@ const skillType = {
   css: 'lang',
   elastic: 'infra',
   express: 'frame',
+  gnu: 'skill',
   groovy: 'lang',
   hibernate: 'frame',
   html: 'lang',
@@ -31,6 +34,8 @@ const skillType = {
   linux: 'infra',
   lua: 'lang',
   macOS: 'infra',
+  maya: 'skill',
+  microservices: 'skill',
   mobile: 'infra',
   mssql: 'frame',
   mysql: 'frame',
@@ -54,6 +59,7 @@ const skillType = {
   webpack: 'infra',
   windows: 'infra',
   wordpress: 'frame',
+  'visual studio': 'skill',
 };
 const typeColour = {
   'skill': 'secondary',
@@ -86,6 +92,7 @@ const jobs = [{
     </ul>
   </div>,
   tools: [
+    'aws',
     'mobile',
     'react',
     'redux',
@@ -93,10 +100,12 @@ const jobs = [{
     'lambda',
     'webpack',
     'continuous integration',
+    'microservices',
     // 'continuous deployment', *sigh* not yet!
     'travis-ci',
     'express',
     'node',
+    'python',
     'npm',
     'kanban',
     'windows',
@@ -128,6 +137,7 @@ const jobs = [{
     </ul>
   </div>,
   tools: [
+    'aws',
     'responsive',
     'mobile',
     'javascript',
@@ -135,6 +145,7 @@ const jobs = [{
     'api-gateway',
     'elastic',
     'groovy',
+    'microservices',
     'node',
     'npm',
     'agile',
@@ -171,6 +182,8 @@ const jobs = [{
     <p>All work was in French.</p>
   </div>,
   tools: [
+    'clang',
+    'gnu',
     'macOS',
     'redhat',
     'LAMP',
@@ -254,14 +267,23 @@ const educations = [{
     'cg',
     'lua',
     'python',
+    'javascript',
+    'maya',
+    'windows',
+    'visual studio',
     'scrum',
   ],
 }, {
   where: 'Port Moody Secondary School',
   what: 'IB Certificate',
   when: 'June 2007',
-  description: <div></div>,
-  tools: [],
+  description: <div>
+    Excellence in Computer Science award, and attended the SFU problem solving competition, implementing solutions in Java.
+  </div>,
+  tools: [
+    'java',
+    'c++',
+  ],
 }];
 
 
@@ -308,7 +330,9 @@ export default class Resume extends React.Component {
 
   renderEducation(education) {
     return <div key={education.where}>
-      <table className='card card-wrapper'><tr><td>
+      <table className='card card-wrapper'><tr><td style={{
+        width: '100%',
+      }}>
         <div className='card-body' style={{
           color: 'black',
         }}>
@@ -327,7 +351,7 @@ export default class Resume extends React.Component {
             { education.description }
           </div>
           <p>
-            {education.tools.map( skill => badgify(skill))}
+            {education.tools.sort().map( skill => badgify(skill))}
           </p>
         </div>
       </td></tr></table>
@@ -356,7 +380,7 @@ export default class Resume extends React.Component {
             { job.description }
           </div>
           <p>
-            {job.tools.map( skill => badgify(skill))}
+            {job.tools.sort().map( skill => badgify(skill))}
           </p>
         </div>
       </td></tr></table>

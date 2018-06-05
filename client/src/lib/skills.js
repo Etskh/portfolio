@@ -1,7 +1,7 @@
 const skills = {
   javascript: 'Specialising in bleeding edge Ecma6, specifically with Nodejs. I am very capable on the client side, knowing jQuery very well.',
   PHP: 'LAMP stacks were my entry into the web world. PHP makes sense as a legacy framework that needs to be maintained, but I dont trust new projects deciding to use it.',
-  shell: '',
+  shell: 'After becoming certified as a Red hat System Administrator, it solidified my understanding of the commandline.',
   linux: '',
   java: 'A necessary tool for enterprises who started their codebases in the early 2000s. I started with applet development, but professionally have worked on huge frameworks.',
   groovy: 'It seemed like a pythonic way to code Java, but I really like many of its small uses of the JVM and leveraging Java\'s enormous std lib',
@@ -12,7 +12,7 @@ const skills = {
   python: 'I have known Python the third longest and feel easiest reading code. (Python 3 is far superior in design to 2.7!)',
   jquery: '',
   cg: 'Ive written several shaders, from basic lit shaders to soft skinned shaders.',
-  'c#': '',
+  'c#': 'Most applications were in Unity, a game engine, for one large project and several small games, but it was also used to make a level editor',
   react: 'In the past year, Ive been developing almost solely with react interfaces, and have become the SME/ambassador at my current company',
 };
 
